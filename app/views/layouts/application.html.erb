@@ -8,6 +8,17 @@
 </head>
 <body>
 
+  <!-- Notice bar -->
+    <% if flash[:notice] %>
+    <div class="alert alert-success">
+      <%= flash[:notice] %>
+    </div>
+  <% elsif flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
   <!-- Navigation bar -->
     <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">

@@ -1,0 +1,12 @@
+<h1>Task Homepage</hi>
+
+<h2><%= link_to "Create New Task", new_task_path %></h2>
+
+<% @tasks.each do |task| %>
+<div class="container">
+  <h3><%= link_to task.title, task_path(task) %></h3>
+  <h4><%= task.due_date %></h4>
+  <hr>
+</div>
+  <% end %>
+
