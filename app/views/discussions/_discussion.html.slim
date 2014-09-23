@@ -1,0 +1,6 @@
+.well{id: dom_id(discussion)}  
+  .row
+    .col-sm-8.col-md-8.col-xs-8
+      %p= discussion.body      
+    .col-sm-4.col-md-4.col-xs-4
+      .pull-right= button_to "Delete", [@project, dicussion], remote: true, method: :delete, class: "btn btn-danger"

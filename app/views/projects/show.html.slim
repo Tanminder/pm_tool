@@ -1,0 +1,26 @@
+.jumbotron.container
+  p#notice= notice
+
+  p
+    strong Title:
+    = @project.title
+  p
+    strong Description:
+    = @project.description
+  p
+    strong Due date:
+    = @project.due_date
+    
+  = link_to 'Back', projects_path
+  |  | 
+  =link_to 'Edit', edit_project_path(@project)
+
+.jumbotron.container
+  #discussion_id
+    - if @project.discussions.empty?
+      p No discussions
+    - else
+      - @project.discussions.each do |discussion|
+        = rend "/discussion/discussion", discussion: discussion
+
+
