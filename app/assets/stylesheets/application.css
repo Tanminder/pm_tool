@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+/* <link href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
+*/
+ p {
+  font-family: 'Calibri';
+  line-height: 40px;
+ }
+
+h3 {
+  font-family: 'Times New Roman';
+}
+
+#nav-bar {
+  color: #fff;
+
+}
