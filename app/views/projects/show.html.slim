@@ -1,26 +1,71 @@
-.jumbotron.container
-  p#notice= notice
 
-  p
-    strong Title:
-    = @project.title
-  p
-    strong Description:
-    = @project.description
-  p
-    strong Due date:
-    = @project.due_date
-    
-  = link_to 'Back', projects_path
-  |  | 
-  =link_to 'Edit', edit_project_path(@project)
+/ display the project
 
-.jumbotron.container
-  #discussion_id
-    - if @project.discussions.empty?
-      p No discussions
-    - else
-      - @project.discussions.each do |discussion|
-        = rend "/discussion/discussion", discussion: discussion
+.container
+  .row
+    .col-sm-8.col-md-8.col-xs-8.jumbotron
+      
+        / p#notice= notice
+        = link_to "<i class='glyphicon glyphicon-chevron-left'></i>".html_safe, projects_path, class: "btn btn-default"  
+        .pull-right= link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, @project, method: :delete, class: "btn btn-default", data: {confirm: "Are you sure you want to delete this project?"} 
+        .pull-right= link_to "<i class='glyphicon glyphicon-pencil'></i>".html_safe, edit_project_path(@project), class: "btn btn-default" 
+
+        h3 
+          strong Title: 
+          | #{@project.title}
+        p
+          strong By: 
+          = @project.user.full_name
+        p
+          strong Description: 
+          = @project.description
+        p
+          strong Due date: 
+          = formatted_date(@project.due_date)
+          
+
+    .col-sm-4.col-md-4.col-xs-4
+      
+        h3= link_to "Add Task", "javascript:void(0);", class: "add-task"
+        .task= render partial: '/tasks/form'
+        hr
+
+          /*** displaying tasks ***/
+        h3 To Do
+        - @project.tasks.each do |task|
+          - unless task.status
+            li 
+              | #{task.title} 
+              | #{link_to "<i class='glyphicon glyphicon-ok'></i>".html_safe , project_task_path(@project, task, {task: {status: true}}), method: :patch}  
+              | #{link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete}
+              p By: #{task.user.full_name}
+                   
+
+        h3 Completed tasks
+        - @project.tasks.each do |task|
+          - if task.status
+            li
+              | #{link_to task.title , project_task_path(@project, task, {task: {status: false}}), method: :patch}  
+              | #{link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete}
+              p   By: #{task.user.full_name}
+
+/ displaying the discussion
+.container
+  .row
+    .col-sm-12.col-md-12.col-xs-12.jumbotron
+      h3= link_to "Add Discussion", "javascript:void(0);", class: "add-discussion"
+      .discussion= render partial: 'discussions/form', locals: {discussion: @discussion}
+      hr
+
+      - if @project.discussions.empty?
+        p No discussions
+      - else
+        .discussions
+          - @project.discussions.each do |discussion|
+            =render partial: 'discussions/discussion', locals: {discussion: discussion}
+            hr
+
+
+
 
 

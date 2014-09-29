@@ -1,12 +1,18 @@
-.jumbotron.container
 
-  p= link_to 'Create a new Project', new_project_path
+
+.container
+  h3= link_to 'New Project', new_project_path
   hr
-
   - @projects.each do |project|
-    h3= link_to project.title, project
-    p= project.description
-    p= project.due_date
-    br
-    hr
+    .row
+      .col-xs-12.col-md-12.jumbotron
+          h3= link_to project.title, project
+          p= project.description
+          p 
+            strong Created By: 
+            | #{project.user.full_name}
+          p
+            strong Due On: 
+            | #{formatted_date(project.due_date)}
+        
 

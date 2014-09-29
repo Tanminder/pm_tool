@@ -25,39 +25,46 @@ class DiscussionsController < ApplicationController
   # POST /discussions
   # POST /discussions.json
   def create
-    @discussion = Discussion.new(discussion_params)
+    @project = Project.find(params[:project_id])
+    @discussion = @project.discussions.new(discussion_params)
+    @discussion.user = current_user
 
     respond_to do |format|
       if @discussion.save
-        format.html { redirect_to @discussion, notice: 'Discussion was successfully created.' }
-        format.json { render :show, status: :created, location: @discussion }
+        format.html { redirect_to @project, notice: 'Discussion was successfully created.' }
+        format.js { render }
+        # format.json { render :show, status: :created, location: @discussion }
       else
-        format.html { render :new }
-        format.json { render json: @discussion.errors, status: :unprocessable_entity }
+        flash.now[:alert] = "Discussion can't be saved"
+        format.html { render '/projects/show'}
+        # format.json { render json: @discussion.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /discussions/1
   # PATCH/PUT /discussions/1.json
-  def update
-    respond_to do |format|
-      if @discussion.update(discussion_params)
-        format.html { redirect_to @discussion, notice: 'Discussion was successfully updated.' }
-        format.json { render :show, status: :ok, location: @discussion }
-      else
-        format.html { render :edit }
-        format.json { render json: @discussion.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     @project = Project.find(params[:project_id])
+  #     if @discussion.update(discussion_params)
+  #       format.html { redirect_to project_path(@project), notice: 'Discussion was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @discussion }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @discussion.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /discussions/1
   # DELETE /discussions/1.json
   def destroy
+    @project = Project.find params[:project_id]
+    @discussion = @project.discussions.find params[:id]
     @discussion.destroy
     respond_to do |format|
-      format.html { redirect_to discussions_url, notice: 'Discussion was successfully destroyed.' }
+      format.html { redirect_to @project, notice: 'Discussion was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

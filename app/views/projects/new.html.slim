@@ -1,8 +1,9 @@
 .jumbotron.container
+  = link_to "<i class='glyphicon glyphicon-chevron-left'></i>".html_safe, projects_path, class: "btn btn-default"
+
 
   h3 New project
   br
   = render 'form'
   br
-  = link_to 'Back', projects_path
 

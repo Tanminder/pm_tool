@@ -1,0 +1,17 @@
+h3 To Do
+- @project.tasks.each do |task|
+  - unless task.status
+    li 
+      | #{task.title} 
+      | #{link_to "<i class='glyphicon glyphicon-ok'></i>".html_safe , project_task_path(@project, task, {task: {status: true}}), method: :patch}  
+      | #{link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete}
+      p By: #{task.user.full_name}
+           
+
+h3 Completed tasks
+- @project.tasks.each do |task|
+  - if task.status
+    li
+      | #{link_to task.title , project_task_path(@project, task, {task: {status: false}}), method: :patch}  
+      | #{link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete}
+      p   By: #{task.user.full_name}
