@@ -1,13 +1,14 @@
 / .well id=dom_id(discussion)
 .row
-  .col-sm-8.col-md-8.col-xs-8
-    p  
+  .col-sm-8.col-md-8.col-xs-8.textwidget
+    h3  
       strong= discussion.title
-    p
+    h4
       strong By: 
       | #{discussion.user.full_name}
-    p= discussion.description
+    h3= discussion.description
 
   .col-sm-4.col-md-4.col-xs-4
     / .pull-right= button_to "Edit", edit_project_discussion_path(@project, discussion), class: "btn btn-primary"
-    .pull-right= link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, discussion], method: :delete, class: "btn btn-default", data: {confirm: "Are you sure you want to delete this discussion?"}
+    .pull-right= link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, discussion], method: :delete, data: {confirm: "Are you sure you want to delete this discussion?"}
+hr

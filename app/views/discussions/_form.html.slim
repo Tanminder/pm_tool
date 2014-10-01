@@ -1,20 +1,5 @@
-= form_for [@project, @discussion] do |f|
-  - if @discussion.errors.any?
-    #error_explanation
-      h2
-        = pluralize(@discussion.errors.count, "error")
-        | prohibited this discussion from being saved:
-      ul
-        - @discussion.errors.full_messages.each do |message|
-          li= message
-  .form-group
-    = f.label :title
-    br
-      = f.text_field :title, class: "form-control"
-  .form-group
-    = f.label :description
-    br
-      = f.text_area :description, class: "form-control"
-  .actions
-    = f.submit class: "btn btn-primary"
-
+= simple_form_for([@project, @discusson], html: {class: 'form-horizontal' })  do |f|
+  h4= f.input :title, label: "Title"
+  h4= f.input :description, label: "Description"
+  h3= f.submit 'Save'
+hr

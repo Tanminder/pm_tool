@@ -26,13 +26,13 @@ class DiscussionsController < ApplicationController
   # POST /discussions.json
   def create
     @project = Project.find(params[:project_id])
-    @discussion = @project.discussions.new(discussion_params)
+    @discussion = @project.discussions.new(params[:id])
     @discussion.user = current_user
 
     respond_to do |format|
       if @discussion.save
         format.html { redirect_to @project, notice: 'Discussion was successfully created.' }
-        format.js { render }
+        # format.js { render }
         # format.json { render :show, status: :created, location: @discussion }
       else
         flash.now[:alert] = "Discussion can't be saved"

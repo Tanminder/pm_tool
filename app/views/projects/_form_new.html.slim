@@ -1,0 +1,30 @@
+h1 Create New Project 
+hr
+= simple_form_for Project.new do |f|
+  h4= f.error_notification
+  h4= f.input :title, label: 'Title'
+  h4= f.input :description, label: 'Description'
+  h4= f.input :due_date, label: 'Deadline'
+  h2= f.submit 'Save'
+
+  / - if @project.errors.any?
+  /   #error_explanation
+  /     h2
+  /       = pluralize(@project.errors.count, "error")
+  /       | prohibited this project from being saved:
+  /     ul
+  /       - @project.errors.full_messages.each do |message|
+  /         li= message
+  / form.form-horizontal role="form" 
+  /   .form-group
+  /     = f.label :title
+  /     = f.text_field :title, class:"form-control"
+  /   .form-group
+  /     = f.label :description
+  /     = f.text_area :description, class:"form-control", placeholder:"Description"
+  /   .form-group
+  /     = f.label :due_date
+  /     = f.datetime_select :due_date, class:"form-control"
+
+  /   = f.submit class: "btn btn-primary"
+  /   br

@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem "animate-rails"
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -38,6 +40,7 @@ gem "delayed_job_web"
 gem "letter_opener", group: :development
 gem 'cancancan', '~> 1.9'
 gem "activeadmin", github: "activeadmin/activeadmin"
+gem 'simple_form'
 
 group :development do
   gem 'hirb'

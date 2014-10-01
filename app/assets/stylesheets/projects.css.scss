@@ -2,14 +2,163 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*Colors: 45ADA8 (blue-green) 56646F (gray) C7F464 (green) f1f1f1 (background gray)*/
+
 .task {
   display: none;
 }
 
-.discussion{
+.discussion {
   display: none;
 }
 
-li {
-  font-size: 18px;
+
+body {
+  background-color: #f1f1f1;
+  font-family: 'Open Sans', 'Roboto Slab', sans-serif;
+  color: rgb(85, 98, 112);
 }
+/*Large*/
+h1 {
+  font-size: 30px;
+}
+/*Medium*/
+h2 {
+  font-size: 22px;
+  text-decoration: underline;
+}
+/*Regular*/
+h3{
+  font-size: 18px;
+  text-align: top;
+  line-height: 1.5em;
+}
+/*Small*/
+h4{
+  font-size: 15px;
+}
+/*Tiny*/
+h5{
+  font-size: 10px;
+}
+
+.navbar-default a:visited,
+.navbar-default .navbar-brand,
+.navbar {
+  border-radius: 0px;
+  border: none;
+  background-color: #45ADA8;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 10px 20px 10px 20px;
+
+}
+
+
+
+input[type="button"], input[type="submit"], input[type="reset"]  {
+  color: #56646F;
+  height: 40px;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: none;
+  background-color: #C7F464;
+  margin: 5px 0 20px 0;
+}
+
+#dialog-modal {
+  background-color: #fff;
+}
+
+
+.taskwidget h2,
+.textwidget h2{
+  margin: 0px;
+  padding: 20px;
+  background-color:#56646F;
+}
+.taskwidget h2 a,
+.textwidget h2 a {
+  color: #fff;
+}
+.taskwidget h2 a:hover,
+.textwidget h2 a:hover {
+  color: #C7F464;
+  background-color: #56646F;
+}
+.taskwidget h3 a:hover,
+.textwidget h3 a:hover {
+  color: #C7F464;
+  background-color: #fff;
+}
+.taskwidget .body,
+.textwidget .body{
+  margin-bottom:30px;
+  border: 1px solid #ddd;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  background-color: #fff;
+}
+.textwidget .body {
+  height: 160px;
+  overflow: hidden;
+}
+.taskwidget .body .completed {
+  text-decoration: line-through;
+}
+
+
+
+/*----------------------------------------------
+css settings for HTML div exactCenter 
+------------------------------------------------*/
+
+#abc{
+width: 100%;
+height: 100%;
+opacity: 0.95;
+top: 0;
+left: 0;
+display: none;
+position: fixed;      
+background-color: #313131;
+overflow:auto;
+
+}
+
+#close{
+position: absolute;
+right: -14px;
+top: -14px;
+cursor: pointer;
+color: #fff;
+}
+
+#popupForm{
+position: absolute; 
+left: 50%;
+top: 17%;
+margin-left: -202px;
+max-width: 300px;
+min-width: 500px;
+padding: 10px 50px;
+border: none;
+background-color: white;
+}
+
+textarea,
+input[type=text], input[type="password"], input[type="email"]{
+width:100%;
+padding: 5px 10px 5px 10px;
+margin: 10px 0 10px 0;
+border: 1px solid #ccc;
+} 
+
+.form-container {
+  width: 300px;
+  // margin-left: auto;
+  // margin-right: auto;
+}
+

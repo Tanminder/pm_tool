@@ -1,17 +1,20 @@
-h3 To Do
-- @project.tasks.each do |task|
-  - unless task.status
-    li 
-      | #{task.title} 
-      | #{link_to "<i class='glyphicon glyphicon-ok'></i>".html_safe , project_task_path(@project, task, {task: {status: true}}), method: :patch}  
-      | #{link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete}
-      p By: #{task.user.full_name}
-           
+- if @project.tasks.empty?
+  h3 No Tasks
+-else
+  - @project.tasks.each do |task|
+    - unless task.status
+      h3 
+        | #{task.title} 
+        .pull-right= link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete
+        .pull-right= link_to "<i class='glyphicon glyphicon-ok'></i>".html_safe , project_task_path(@project, task, {task: {status: true}}), method: :patch 
+      h5 #{"<i class='glyphicon glyphicon-calendar'></i>".html_safe} #{formatted_date(task.due_date)}
 
-h3 Completed tasks
-- @project.tasks.each do |task|
-  - if task.status
-    li
-      | #{link_to task.title , project_task_path(@project, task, {task: {status: false}}), method: :patch}  
-      | #{link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete}
-      p   By: #{task.user.full_name}
+      / p#author By: #{task.user.full_name}
+           
+  - @project.tasks.each do |task|
+    - if task.status
+      .completed
+        h3
+          | #{link_to task.title , project_task_path(@project, task, {task: {status: false}}), method: :patch}  
+          .pull-right= link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete
+          / p#author   By: #{task.user.full_name}

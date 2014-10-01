@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @task = Task.new
     @discussion = Discussion.new
-    @comment = Comment.new
+    # @comment = Comment.new
   end
 
   # GET /projects/new
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
-        format.html { render :new }
+        format.html { redirect_to projects_path, alert: 'Project was not created due to some error. Please try again'}
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
-        format.html { render :edit }
+        format.html { redirect_to @project, alert: 'Project was not successfully edited due to some error. Please try again'}
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
@@ -59,10 +59,12 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    if @project.user = current_user && @project.destroy
-      respond_to do |format|
-        format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-        format.json { head :no_content }
+    respond_to do |format|
+      if @project.user == current_user && @project.destroy
+        format.html { redirect_to projects_path, notice: 'Project was successfully destroyed.' }
+          # format.json { head :no_content }
+      else
+        format.html { redirect_to @project, alert: 'Must be the owner of the project to delete it.' }   
       end
     end
   end

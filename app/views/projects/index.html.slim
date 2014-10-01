@@ -1,18 +1,76 @@
 
+.row
 
-.container
-  h3= link_to 'New Project', new_project_path
-  hr
   - @projects.each do |project|
-    .row
-      .col-xs-12.col-md-12.jumbotron
-          h3= link_to project.title, project
-          p= project.description
-          p 
-            strong Created By: 
-            | #{project.user.full_name}
-          p
-            strong Due On: 
-            | #{formatted_date(project.due_date)}
-        
+    .col-sm-6.col-md-4.textwidget
+      h2= link_to project.title, project
+      
+      .body
+        / p= project.description
+        h3 #{"<i class='glyphicon glyphicon-calendar'></i>".html_safe} #{formatted_date(project.due_date)}
+        h3 #{"<i class='glyphicon glyphicon-list'></i>".html_safe} Tasks (#{project.tasks.count})
+        h3 #{"<i class='glyphicon glyphicon-comment'></i>".html_safe} Discussions (#{project.discussions.count})
+
+  .col-sm-6.col-md-4.textwidget
+
+    h2
+      a#popup href="javascript:void(null);" onclick="div_show();"  New Project 
+
+    .body
+      h3 #{"<i class='glyphicon glyphicon-plus-sign'></i>".html_safe}
+      / a href="javascript:void(null);" onclick="div_show();" #{"<i class='glyphicon glyphicon-plus-sign'></i>".html_safe}
+
+
+
+body onclick="check(event)" style="overflow:hidden;" 
+  #abc
+    #popupForm
+      = render partial: 'projects/form_new'
+      #close = "<i class='glyphicon glyphicon-remove'></i>".html_safe
+
+  
+    
+
+
+
+
+
+javascript:
+
+
+  //function to display Popup
+  function div_show(){ 
+  document.getElementById('abc').style.display = "block";
+  }
+
+  //function to check target element
+  function check(e){ 
+  var target = (e && e.target) || (event && event.srcElement); 
+
+  var obj = document.getElementById('abc'); 
+  var obj2 = document.getElementById('popup'); 
+
+  checkParent(target)?obj.style.display='none':null; 
+  target==obj2?obj.style.display='block':null; 
+
+  } 
+
+  //function to check parent node and return result accordingly
+  function checkParent(t){ 
+    while(t.parentNode){ 
+      if(t==document.getElementById('abc'))
+        { 
+          return false 
+        }
+      else if(t==document.getElementById('close'))
+        {
+          return true
+        } 
+      t=t.parentNode 
+    } 
+    return true 
+  } 
+
+
+
 
