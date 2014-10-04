@@ -4,4 +4,3 @@ A fully responsive project management tool with a user friendly interface for mu
 
 Visit http://tkr2-pm-tool.herokuapp.com/ for demo
 
-Instructions: git clone git@github.com:tkr2/pm_tool.git
