@@ -1,4 +1,4 @@
-= simple_form_for([@project, @discusson], html: {class: 'form-horizontal' })  do |f|
+= simple_form_for [@project, (@discussion || Discussion.new)], html: {class: 'form-horizontal' }, remote: true  do |f|
   h4= f.input :title, label: "Title"
   h4= f.input :description, label: "Description"
   h3= f.submit 'Save'

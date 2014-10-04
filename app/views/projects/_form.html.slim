@@ -1,0 +1,6 @@
+
+= simple_form_for @project do |f|
+  h4= f.input :title, label: 'Title'
+  h4= f.input :description, label: 'Description'
+  h4= f.input :due_date, label: 'Deadline'
+  h2= f.submit 'Save'

@@ -4,3 +4,12 @@
 
 
 
+$ ->
+  $(document).on "click", '.add-task', ->
+    $('.task').slideToggle()
+
+$ ->
+  $(document).on "click", '.add-discussion', ->
+    $('.discussion').slideToggle()
+
+    

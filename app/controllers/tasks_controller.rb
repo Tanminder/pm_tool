@@ -26,16 +26,17 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @project = Project.find params[:project_id]
-    @task = @project.tasks.new(task_params)
-    @task.user = current_user
+    @task = current_user.tasks.new(task_params)
+    @task.project = @project
 
     respond_to do |format|
       if @task.save
         format.html { redirect_to @project, notice: 'Task was successfully created.' }
+        format.js {render}
         # format.json { render :show, status: :created, location: @task }
       else
-        format.html { redirect_to @project, alert: 'Task not created!'}
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.html { render "/projects/show"}
+        # format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,7 +65,8 @@ class TasksController < ApplicationController
     @task.destroy
     respond_to do |format|
       format.html { redirect_to @project, notice: 'Task was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js { render }
+      # format.json { head :no_content }
     end
   end
 

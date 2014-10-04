@@ -1,14 +1,14 @@
 .row
-  .col-sm-8.col-md-8.col-xs-8.taskwidget
+  .col-sm-8.col-md-8.col-xs-12.taskwidget
     .body
       / p#notice= notice
       h3.pull-right
-        / = link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, @project, method: :delete, data: {confirm: "Are you sure you want to delete this project?"} 
-        a#popup href="javascript:void(null);" onclick="div_show();" Edit
-        |  |  
-        = link_to "Delete", @project, method: :delete, data: {confirm: "Are you sure you want to delete this project?"} 
-        / #{"<i class='glyphicon glyphicon-pencil'></i>".html_safe}
-        / h3.pull-right= link_to "<i class='glyphicon glyphicon-pencil'></i>".html_safe, edit_project_path(@project)
+
+        - if current_user && @project.user == current_user
+          = link_to "Edit", edit_project_path(@project)
+          |  |  
+          = link_to "Delete", @project, method: :delete, data: {confirm: "Are you sure you want to delete this project?"} 
+
 
       h1#title #{@project.title}
       h4
@@ -24,92 +24,34 @@
 
     h2= link_to "<i class='glyphicon glyphicon-plus-sign'> Discussion</i>".html_safe, "javascript:void(0);", class: "add-discussion"
     .body
-      / .discussion= render partial: '/discussions/form'
+      .discussion= render partial: '/discussions/form'
 
-
-      - if @project.discussions.empty?
+      .discussions
+        - if @project.discussions.empty?
           h3 No discussions
-      - else
-        .discussions
+        - else
           - @project.discussions.each do |discussion|
-              h3=render partial: 'discussions/discussion', locals: { discussion: discussion}
-            
+            = render partial: '/discussions/discussion', locals: { discussion: discussion}
+            / @project.discussions.order("created_at DESC")              
 
-  .col-sm-6.col-md-4.taskwidget
+
+  .col-sm-4.col-md-4.col-xs-12.taskwidget
     h2.add-task= link_to "<i class='glyphicon glyphicon-plus-sign'> Tasks</i>".html_safe, "javascript:void(0);"
-    / = "<i class='glyphicon glyphicon-plus-sign'></i>".html_safe
-    / button onclick="form_show()" Tasks
-
     .body
       .task= render partial: '/tasks/form'
-      h3= render partial: '/tasks/task', locals: { project: @project }
-
-
-
-
-body onclick="check(event)" style="overflow:hidden;" 
-  #abc
-    #popupForm
-      = render partial: 'projects/form_edit', locals: {project: @project}
-      #close = "<i class='glyphicon glyphicon-remove'></i>".html_safe
-
-
-javascript:
-  function check_empty(){
-  if(document.getElementById('name').value == "" 
-  || document.getElementById('email').value == "" 
-  ||document.getElementById('msg').value == "" ){
-  alert ("Fill All Fields !");
-  }
-    else {  
-    document.getElementById('form').submit();  
-    alert ("Form submitted successfully...");
-    }
-  }
-
-  //function to display Popup
-  function div_show(){ 
-  document.getElementById('abc').style.display = "block";
-  }
-
-  //function to check target element
-  function check(e){ 
-  var target = (e && e.target) || (event && event.srcElement); 
-
-  var obj = document.getElementById('abc'); 
-  var obj2 = document.getElementById('popup'); 
-
-  checkParent(target)?obj.style.display='none':null; 
-  target==obj2?obj.style.display='block':null; 
-
-  } 
-
-  //function to check parent node and return result accordingly
-  function checkParent(t){ 
-    while(t.parentNode){ 
-      if(t==document.getElementById('abc'))
-        { 
-          return false 
-        }
-      else if(t==document.getElementById('close'))
-        {
-          return true
-        } 
-      t=t.parentNode 
-    } 
-    return true 
-  } 
-
-
-
-coffee:
-  $ ->
-    $('.add-task').on "click", ->
-      $('.task').slideToggle()
-
-  $ ->
-    $('.add-discussion').on "click", ->
-      $('.discussion').slideToggle()
+      .tasks
+        - if @project.tasks.empty?
+          h3 No Tasks
+        - else
+          - @project.tasks.each do |task|
+            h3= render partial: '/tasks/task', locals: { task: task }
+          - @project.tasks.each do |task|
+              - if task.status
+                .completed
+                  h3
+                    | #{link_to task.title , project_task_path(@project, task, {task: {status: false}}), method: :patch}  
+                    .pull-right= link_to "<i class='glyphicon glyphicon-remove'></i>".html_safe, [@project, task], method: :delete
+                    / p#author   By: #{task.user.full_name}
 
 
 

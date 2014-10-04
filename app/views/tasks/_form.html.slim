@@ -1,6 +1,5 @@
 
-= simple_form_for([@project, @task], html: {class: 'form-horizontal' })  do |f|
-  h4= f.error_notification
+= simple_form_for [@project, (@task || Task.new)], html: {class: 'form-horizontal' }, remote: true  do |f|
   h4= f.input :title, label: "Task"
   h4= f.input :due_date
   h3= f.submit 'Save'

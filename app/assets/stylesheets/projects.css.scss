@@ -82,6 +82,10 @@ input[type="button"], input[type="submit"], input[type="reset"]  {
 .textwidget h2 a {
   color: #fff;
 }
+.taskwidget .body a,
+.textwidget .body a{
+  color: #56646F;
+}
 .taskwidget h2 a:hover,
 .textwidget h2 a:hover {
   color: #C7F464;

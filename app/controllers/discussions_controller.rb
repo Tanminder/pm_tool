@@ -25,14 +25,14 @@ class DiscussionsController < ApplicationController
   # POST /discussions
   # POST /discussions.json
   def create
-    @project = Project.find(params[:project_id])
-    @discussion = @project.discussions.new(params[:id])
+    @project    = Project.find(params[:project_id])
+    @discussion = @project.discussions.new(params.require(:discussion).permit(:title, :description))
     @discussion.user = current_user
 
     respond_to do |format|
       if @discussion.save
         format.html { redirect_to @project, notice: 'Discussion was successfully created.' }
-        # format.js { render }
+        format.js { render }
         # format.json { render :show, status: :created, location: @discussion }
       else
         flash.now[:alert] = "Discussion can't be saved"
@@ -65,7 +65,8 @@ class DiscussionsController < ApplicationController
     @discussion.destroy
     respond_to do |format|
       format.html { redirect_to @project, notice: 'Discussion was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js { render }
+      # format.json { head :no_content }
     end
   end
 

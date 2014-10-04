@@ -4,7 +4,7 @@ class Discussion < ActiveRecord::Base
   has_many :comments, dependent: :destroy 
 
   validates :title, presence: true
-  # validates :description, length: {minimum: 10} 
+  validates :description, length: {minimum: 10} 
 
   before_save :capitalize_title
 

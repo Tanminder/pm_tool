@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
 
   validates :title, presence: true,
                   uniqueness: true
+  validates :description, length: {minimum: 10} 
 
   before_save :capitalize_title
 
