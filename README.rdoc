@@ -4,8 +4,4 @@ A fully responsive project management tool with a user friendly interface for mu
 
 Visit http://tkr2-pm-tool.herokuapp.com/ for demo
 
-User Authenicate done via Devise gem
-Layout designed using bootstrap
-Uses ajax to add discussions and tasks
-
 Instructions: git clone git@github.com:tkr2/pm_tool.git
