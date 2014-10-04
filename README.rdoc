@@ -1,6 +1,11 @@
 == README
 
-<h1> Project Management Tool</h1> 
-Tool for multiple users to collaborate on a project together. Any user can create a project, add tasks, mark the tasks complete or incomplete and have discussions. Includes user authentication, user must be signed in to create or delete projects.
+A fully responsive project management tool with a user friendly interface for multiple users to collaborate on a project together. Any user can create a project, add tasks, mark the tasks complete or incomplete and have discussions. Includes user authentication, user must be signed in to create or delete projects.
 
+Visit http://tkr2-pm-tool.herokuapp.com/ for demo
 
+User Authenicate done via Devise gem
+Layout designed using bootstrap
+Uses ajax to add discussions and tasks
+
+Instructions: git clone git@github.com:tkr2/pm_tool.git
