@@ -22,7 +22,10 @@
         = formatted_date(@project.due_date)
         
 
-    h2= link_to "<i class='glyphicon glyphicon-plus-sign'> Discussion</i>".html_safe, "javascript:void(0);", class: "add-discussion"
+    - if user_signed_in?
+      h2= link_to "<i class='glyphicon glyphicon-plus-sign'> Discussion</i>".html_safe, "javascript:void(0);", class: "add-discussion"
+    - else
+        h2= link_to "<i class='glyphicon glyphicon-plus-sign'> Discussion</i>".html_safe, new_user_session_path, class: "add-discussion"
     .body
       .discussion= render partial: '/discussions/form'
 
@@ -36,7 +39,11 @@
 
 
   .col-sm-4.col-md-4.col-xs-12.taskwidget
-    h2.add-task= link_to "<i class='glyphicon glyphicon-plus-sign'> Tasks</i>".html_safe, "javascript:void(0);"
+    - if user_signed_in?
+      h2.add-task= link_to "<i class='glyphicon glyphicon-plus-sign'> Tasks</i>".html_safe, "javascript:void(0);"
+    - else
+      h2.add-task= link_to "<i class='glyphicon glyphicon-plus-sign'> Tasks</i>".html_safe, new_user_session_path
+      
     .body
       .task= render partial: '/tasks/form'
       .tasks
